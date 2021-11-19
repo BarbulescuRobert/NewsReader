@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.barbulescurobertgabriel.newsreader.ui.main.MainFragment;
+import com.barbulescurobertgabriel.newsreader.feature.newslist.fragment.MainFragment;
 
 public class MainActivity extends AppCompatActivity {
 
