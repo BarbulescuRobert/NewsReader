@@ -1,9 +1,10 @@
-package com.barbulescurobertgabriel.newsreader;
+package com.barbulescurobertgabriel.newsreader.feature.newslist;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.barbulescurobertgabriel.newsreader.R;
 import com.barbulescurobertgabriel.newsreader.feature.newslist.fragment.MainFragment;
 
 public class MainActivity extends AppCompatActivity {
