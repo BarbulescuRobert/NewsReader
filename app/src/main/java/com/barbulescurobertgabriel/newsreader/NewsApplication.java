@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.barbulescurobertgabriel.data.di.RepoModule;
 
-public class DemoApplication extends Application {
+public class NewsApplication extends Application {
 
     //move along, will be replaced with Dagger later
     private static RepoModule repoModule;

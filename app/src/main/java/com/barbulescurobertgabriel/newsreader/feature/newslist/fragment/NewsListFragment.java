@@ -19,13 +19,13 @@ import com.barbulescurobertgabriel.newsreader.feature.newslist.model.NewsListVie
 import com.barbulescurobertgabriel.newsreader.feature.newslist.model.factory.ViewModelFactory;
 import com.barbulescurobertgabriel.newsreader.feature.newslist.navigator.AlertNavigator;
 
-public class MainFragment extends Fragment {
+public class NewsListFragment extends Fragment {
 
     private NewsListViewModel mViewModel;
     private AlertNavigator alertNavigator;
 
-    public static MainFragment newInstance() {
-        return new MainFragment();
+    public static NewsListFragment newInstance() {
+        return new NewsListFragment();
     }
 
     @Override

@@ -1,11 +1,15 @@
 package com.barbulescurobertgabriel.newsreader.feature.newslist.model;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableList;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.OnLifecycleEvent;
 
 import com.barbulescurobertgabriel.data.NewsRepository;
@@ -20,7 +24,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class NewsListViewModel extends AndroidViewModel implements LifecycleObserver {
     @NonNull
-    public final List<ArticleItemViewModel> newsList = new ArrayList<>();
+    public final ObservableList<ArticleItemViewModel> newsList;
     private final static String LINK = "https://newsapi.org/";
     private final NewsRepository repo;
 
@@ -29,24 +33,27 @@ public class NewsListViewModel extends AndroidViewModel implements LifecycleObse
 
     public NewsListViewModel(Application application, NewsRepository repo) {
         super(application);
+        this.newsList = new ObservableArrayList<>();
         this.repo = repo;
         this.error = new SingleLiveEvent<>();
         this.openLink = new SingleLiveEvent<>();
     }
 
+    @SuppressLint("CheckResult")
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     public void refresh()
     {
         repo.getNewsArticles()
+                .map(new NewsArticlesToViewModelMapper())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         this::onNewsArticlesReceived,
                         this::onNewsArticlesError
                 );
     }
-    private void onNewsArticlesReceived(@NonNull List<Article> articles) {
-        for(Article a : articles)
-            newsList.add(new ArticleItemViewModel(a.title, a.content, a.imageUrl));
+    private void onNewsArticlesReceived(@NonNull List<ArticleItemViewModel> articles) {
+        newsList.clear();
+        newsList.addAll(articles);
     }
 
     private void onNewsArticlesError(Throwable throwable) {
