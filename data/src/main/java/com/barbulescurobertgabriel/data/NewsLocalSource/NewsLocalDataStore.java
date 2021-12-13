@@ -43,6 +43,6 @@ public class NewsLocalDataStore {
             b.imageUrl = a.imageUrl;
             articleEntities.add(b);
         }
-        dao.insertArticles(articleEntities).observeOn(Schedulers.io()).subscribe();
+        dao.insertArticles(articleEntities).observeOn(Schedulers.io()).subscribeOn(Schedulers.io());
     }
 }
